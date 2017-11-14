@@ -18,7 +18,7 @@ GraphCutInference.cc	Graph cut inference
 [Geometry]
 ConvexHull.cc	Convex hull
 Geometry.cc	Miscellaneous geometry
-JavaGeometry.java	Java geometry
+#JavaGeometry.java	Java geometry
 Geom3D.java	3D geometry
 Delaunay.cc	Slow Delaunay triangulation
 #Delaunay.java	Slow Delaunay triangulation (Java)
@@ -57,7 +57,7 @@ Primes.cc	Prime numbers
 IO.cc	C++ input/output
 KMP.cc	Knuth-Morris-Pratt
 LatLong.cc	Latitude/longitude
-EmacsSettings.txt	Emacs settings
+#EmacsSettings.txt	Emacs settings
 #TopologicalSort.cc	Topological sort (C++)
 #Dates.java	Dates (Java)
 #DecFormat.java	Decimal output formatting (Java)
