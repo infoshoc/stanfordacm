@@ -46,6 +46,7 @@ BIT.cc	Binary Indexed Tree
 UnionFind.cc	Union-find set
 KDTree.cc	KD-tree
 splay.cc	Splay tree
+SegmentTree.cc	Fast segment tree
 SegmentTreeLazy.java	Lazy segment tree
 LCA.cc	Lowest common ancestor
 
