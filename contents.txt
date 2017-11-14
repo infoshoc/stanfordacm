@@ -64,6 +64,6 @@ LatLong.cc	Latitude/longitude
 #DecFormat.java	Decimal output formatting (Java)
 #RandomSTL.cc	Random STL stuff
 #CSP.cc	Constraint satisfaction problems
-#FastExpo.cc	Fast exponentiation
+FastExpo.cc	Fast exponentiation
 #LCS.cc	Longest common subsequence
 #MillerRabin.c	Miller-Rabin Primality Test (C)
