@@ -206,6 +206,42 @@ bool IsSimple(const vector<PT> &p) {
   return true;
 }
 
+inline bool cw(const PT &from, const PT &to) { return cross(from, to) < -EPS; }
+inline bool ccw(const PT &from, const PT &to) { return cross(from, to) > EPS; }
+
+// cw
+inline bool isInsideTriangle(const PT &point, const PT triangle[])
+{
+    const int n = 3;
+    
+    for (int i = 0; i < n; ++i)
+    {
+        if (cw(point - triangle[i], triangle[(i+1) % n] - triangle[i]))
+        {
+            return false;
+        }
+    }
+    
+    return true;
+}
+
+// cw
+inline bool isInsideHull(const PT &point, const int hullSize, const PT hull[])
+{
+    int bottomNeighbourIndex = (int)(lower_bound(hull + 2, hull + hullSize, point, [&](const PT &current, const PT &needle) {
+        return ccw(needle - hull[0], current - hull[0]);
+    }) - hull);
+    
+    if (bottomNeighbourIndex >= hullSize)
+    {
+        return false;
+    }
+    
+    const PT triangle[] = { hull[0], hull[bottomNeighbourIndex-1], hull[bottomNeighbourIndex] };
+    
+    return isInsideTriangle(point, triangle);
+}
+
 int main() {
   
   // expected: (-5,2)
