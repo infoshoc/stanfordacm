@@ -41,6 +41,7 @@ EulerianPath.cc	Eulerian path
 #Prim.cc	Minimum spanning trees
 
 [Data structures]
+Aho-Corasick.cc	Aho Corasick 
 SuffixArray.cc	Suffix array
 BIT.cc	Binary Indexed Tree
 UnionFind.cc	Union-find set
