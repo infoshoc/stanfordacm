@@ -24,6 +24,7 @@ Delaunay.cc	Slow Delaunay triangulation
 #Delaunay.java	Slow Delaunay triangulation (Java)
 
 [Numerical algorithms]
+EratosthenesSieve.cc	Eratosthenes Sieve
 Euclid.cc	Number theory (modular, Chinese remainder, linear Diophantine)
 GaussJordan.cc	Systems of linear equations, matrix inverse, determinant
 ReducedRowEchelonForm.cc	Reduced row echelon form, matrix rank
