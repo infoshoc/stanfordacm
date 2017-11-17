@@ -1,10 +1,15 @@
 #include <iostream>
 #include <iomanip>
+#include <bits/stdc++.h>
 
 using namespace std;
 
 int main()
 {
+    ios::sync_with_stdio(false);
+    cin.tie(0);
+    srand((unsigned int)time(NULL));
+
     // Ouput a specific number of digits past the decimal point,
     // in this case 5    
     cout.setf(ios::fixed); cout << setprecision(5);
