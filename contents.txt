@@ -70,3 +70,5 @@ LatLong.cc	Latitude/longitude
 FastExpo.cc	Fast exponentiation
 #LCS.cc	Longest common subsequence
 #MillerRabin.c	Miller-Rabin Primality Test (C)
+SAT2.cc	SAT-2
+TernarySearch.cc	Ternary Search
