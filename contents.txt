@@ -52,6 +52,8 @@ SegmentTree.cc	Fast segment tree
 Fenwick.cc	Fenwick tree
 SegmentTreeLazy.java	Lazy segment tree
 LCA.cc	Lowest common ancestor
+Treap.cc	Treap
+Ukkonen.cc	Ukkonen
 
 [Miscellaneous]
 LongestIncreasingSubsequence.cc	Longest increasing subsequence
