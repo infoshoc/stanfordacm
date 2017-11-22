@@ -54,6 +54,7 @@ SegmentTreeLazy.java	Lazy segment tree
 LCA.cc	Lowest common ancestor
 Treap.cc	Treap
 Ukkonen.cc	Ukkonen
+ZFunction.cc	Z-Function
 
 [Miscellaneous]
 LongestIncreasingSubsequence.cc	Longest increasing subsequence
