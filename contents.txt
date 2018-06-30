@@ -44,7 +44,7 @@ EulerianPath.cc	Eulerian path
 [Data structures]
 Aho-Corasick.cc	Aho Corasick 
 SuffixArray.cc	Suffix array
-BIT.cc	Binary Indexed Tree
+# BIT.cc	Binary Indexed Tree
 UnionFind.cc	Union-find set
 KDTree.cc	KD-tree
 splay.cc	Splay tree
@@ -75,3 +75,5 @@ FastExpo.cc	Fast exponentiation
 #MillerRabin.c	Miller-Rabin Primality Test (C)
 SAT2.cc	SAT-2
 TernarySearch.cc	Ternary Search
+STLRankTree.cc	Rank Tree [STL]
+Rope.cc		Rope [STL]
