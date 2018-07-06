@@ -4,3 +4,6 @@
       C[i] = sum_j A[j] B[i xor j]
 * Error-check the codes in stanford-cardinal-16 and merge them to the existing code base.
 + Fix MinCostMaxFlow.cc for parallel/undirected edges
++ Add Rotating Caliper?
++ Add Mariage?
+
