@@ -77,3 +77,4 @@ SAT2.cc	SAT-2
 TernarySearch.cc	Ternary Search
 STLRankTree.cc	Rank Tree [STL]
 Rope.cc		Rope [STL]
+ConvexHullOptimization.cc	Convex Hull Optimization
