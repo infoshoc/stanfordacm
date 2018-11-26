@@ -7,3 +7,5 @@
 + Add Rotating Caliper?
 + Add Mariage?
 + Add bridges
++ polygon intersection/union ?
++ circles sweep?
