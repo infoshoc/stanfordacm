@@ -6,7 +6,8 @@
 + Fix MinCostMaxFlow.cc for parallel/undirected edges
 + Add Rotating Caliper?
 + Add Mariage?
-+ Add bridges
 + polygon intersection/union ?
 + circles sweep?
 + Edmonds Directed MST N^2
++ fix LCA
+

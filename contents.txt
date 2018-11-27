@@ -40,6 +40,7 @@ SCC.cc	Strongly connected components
 EulerianPath.cc	Eulerian path
 #Kruskal.cc	Kruskal's algorithm
 #Prim.cc	Minimum spanning trees
+BridgesCutPoints.cc	Bridges and Cutpoints
 
 [Data structures]
 Aho-Corasick.cc	Aho Corasick 
