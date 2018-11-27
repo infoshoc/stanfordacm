@@ -9,3 +9,4 @@
 + Add bridges
 + polygon intersection/union ?
 + circles sweep?
++ Edmonds Directed MST N^2
