@@ -1,13 +1,12 @@
-// Implementation of min cost max flow algorithm using adjacency
-// matrix (Edmonds and Karp 1972).  This implementation keeps track of
-// forward and reverse edges separately (so you can set cap[i][j] !=
-// cap[j][i]).  For a regular max flow, set all edge costs to 0.
+// Implementation of min cost max flow algorithm using linked list
+// For a regular max flow, set all edge costs to 0. If you use Dijkstra i.o.
+// Levit next comments are true
 //
 // Running time, O(|V|^2) cost per augmentation
 //     max flow:           O(|V|^3) augmentations
 //     min cost max flow:  O(|V|^4 * MAX_EDGE_COST) augmentations
-//     
-// INPUT: 
+//
+// INPUT:
 //     - graph, constructed using AddEdge()
 //     - source
 //     - sink
@@ -19,6 +18,8 @@
 #include <cmath>
 #include <vector>
 #include <iostream>
+#include <queue>
+#include <limits>
 
 using namespace std;
 
@@ -33,84 +34,87 @@ typedef vector<PII> VPII;
 const L INF = numeric_limits<L>::max() / 4;
 
 struct MinCostMaxFlow {
-  int N;
-  VVL cap, flow, cost;
-  VI found;
-  VL dist, pi, width;
-  VPII dad;
-
-  MinCostMaxFlow(int N) : 
-    N(N), cap(N, VL(N)), flow(N, VL(N)), cost(N, VL(N)), 
-    found(N), dist(N), pi(N), width(N), dad(N) {}
+  const L INF = 1000*1000*1000;
   
-  void AddEdge(int from, int to, L cap, L cost) {
-    this->cap[from][to] = cap;
-    this->cost[from][to] = cost;
+  struct rib {
+    L b, u, c, f;
+    size_t back;
+  };
+  
+  int n;
+  vector<vector<rib>> g;
+  
+  MinCostMaxFlow(int n_): n(n_), g(n) {}
+  
+  void AddEdge(int a, int b, L cap, L cost) {
+    rib r1 = { b, cap, cost, 0, g[b].size() };
+    rib r2 = { a, 0, -cost, 0, g[a].size() };
+    g[a].push_back (r1);
+    g[b].push_back (r2);
   }
   
-  void Relax(int s, int k, L cap, L cost, int dir) {
-    L val = dist[s] + pi[s] - pi[k] + cost;
-    if (cap && val < dist[k]) {
-      dist[k] = val;
-      dad[k] = make_pair(s, dir);
-      width[k] = min(cap, width[s]);
-    }
-  }
-
-  L Dijkstra(int s, int t) {
-    fill(found.begin(), found.end(), false);
-    fill(dist.begin(), dist.end(), INF);
-    fill(width.begin(), width.end(), 0);
-    dist[s] = 0;
-    width[s] = INF;
-    
-    while (s != -1) {
-      int best = -1;
-      found[s] = true;
-      for (int k = 0; k < N; k++) {
-        if (found[k]) continue;
-        Relax(s, k, cap[s][k] - flow[s][k], cost[s][k], 1);
-        Relax(s, k, flow[k][s], -cost[k][s], -1);
-        if (best == -1 || dist[k] < dist[best]) best = k;
-      }
-      s = best;
-    }
-
-    for (int k = 0; k < N; k++)
-      pi[k] = min(pi[k] + dist[k], INF);
-    return width[t];
-  }
-
-  pair<L, L> GetMaxFlow(int s, int t) {
-    L totflow = 0, totcost = 0;
-    while (L amt = Dijkstra(s, t)) {
-      totflow += amt;
-      for (int x = t; x != s; x = dad[x].first) {
-        if (dad[x].second == 1) {
-          flow[dad[x].first][x] += amt;
-          totcost += amt * cost[dad[x].first][x];
-        } else {
-          flow[x][dad[x].first] -= amt;
-          totcost -= amt * cost[x][dad[x].first];
+  pair<L, L> GetMaxFlow(int s, int t, int k=INF) {
+    L flow = 0,  cost = 0;
+    while (flow < k) {
+      vector<int> id (n, 0);
+      vector<int> d (n, INF);
+      vector<int> q (n);
+      vector<int> p (n);
+      vector<size_t> p_rib (n);
+      int qh=0, qt=0;
+      q[qt++] = s;
+      d[s] = 0;
+      while (qh != qt) {
+        int v = q[qh++];
+        id[v] = 2;
+        if (qh == n)  qh = 0;
+        for (size_t i=0; i<g[v].size(); ++i) {
+          rib & r = g[v][i];
+          if (r.f < r.u && d[v] + r.c < d[r.b]) {
+            d[r.b] = d[v] + r.c;
+            if (id[r.b] == 0) {
+              q[qt++] = r.b;
+              if (qt == n)  qt = 0;
+            }
+            else if (id[r.b] == 2) {
+              if (--qh == -1)  qh = n-1;
+              q[qh] = r.b;
+            }
+            id[r.b] = 1;
+            p[r.b] = v;
+            p_rib[r.b] = i;
+          }
         }
       }
+      if (d[t] == INF)  break;
+      L addflow = k - flow;
+      for (int v=t; v!=s; v=p[v]) {
+        int pv = p[v];  size_t pr = p_rib[v];
+        addflow = min (addflow, g[pv][pr].u - g[pv][pr].f);
+      }
+      for (int v=t; v!=s; v=p[v]) {
+        int pv = p[v];  size_t pr = p_rib[v],  r = g[pv][pr].back;
+        g[pv][pr].f += addflow;
+        g[v][r].f -= addflow;
+        cost += g[pv][pr].c * addflow;
+      }
+      flow += addflow;
     }
-    return make_pair(totflow, totcost);
+    return {flow, cost};
   }
-};
-
+};;
 // BEGIN CUT
 // The following code solves UVA problem #10594: Data Flow
 
 int main() {
   int N, M;
 
-  while (scanf("%d%d", &N, &M) == 2) {
+  while (cin >> N >> M) {
     VVL v(M, VL(3));
     for (int i = 0; i < M; i++)
-      scanf("%Ld%Ld%Ld", &v[i][0], &v[i][1], &v[i][2]);
+      cin >> v[i][0] >> v[i][1] >> v[i][2];
     L D, K;
-    scanf("%Ld%Ld", &D, &K);
+    cin >> D >> K;
 
     MinCostMaxFlow mcmf(N+1);
     for (int i = 0; i < M; i++) {
@@ -119,16 +123,14 @@ int main() {
     }
     mcmf.AddEdge(0, 1, D, 0);
     
-    pair<L, L> res = mcmf.GetMaxFlow(0, N);
+    pair<L, L> res = mcmf.GetMinCostMaxFlow(0, N);
 
-    if (res.first == D) {
-      printf("%Ld\n", res.second);
+    if (res.second == D) {
+      cout << res.first << '\n';
     } else {
-      printf("Impossible.\n");
+      cout << "Impossible.\n";
     }
   }
   
   return 0;
 }
-
-// END CUT
