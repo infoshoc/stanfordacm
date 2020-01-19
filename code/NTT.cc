@@ -3,10 +3,9 @@ namespace NTT {
 		const int n = sz(a);
 		assert((n ^ (n&-n)) == 0); //n = 2^k
 
-		const int g = 3; //g is primitive root of mod (g^(prime number <  mod) != 1)
+		const int g = 3; //g is primitive root of mod (g^(prime number <  mod-1) != 1)
 		int h = (int)mod_pow(g, (mod - 1) / n, mod); // h^n = 1
-		if (sign == -1) h = (int)mod_inv(h, mod); //h = h^-1 % 
-mod
+		if (sign == -1) h = (int)mod_inv(h, mod); //h = h^-1 % mod
 
 		//bit reverse
 		int i = 0;
@@ -26,8 +25,7 @@ mod
 					a[s] = u + d;
 					if (a[s] >= mod) a[s] -= mod;
 					a[s + m] = u - d;
-					if (a[s + m] < 0) a[s + m] += 
-mod;
+					if (a[s + m] < 0) a[s + m] += mod;
 				}
 				w = w * base % mod;
 			}
